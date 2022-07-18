@@ -205,6 +205,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "631ae5198c9be5e753e5cc215e1bd73c2b466a3565173db433f52bb9d3e66dba"
 
 [[package]]
+name = "castaway"
+version = "0.1.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a2698f953def977c68f935bb0dfa959375ad4638570e969e2f1e9f433cbf1af6"
+
+[[package]]
 name = "catalog"
 version = "0.2.0"
 dependencies = [
@@ -258,6 +264,7 @@ dependencies = [
  "async-trait",
  "futures",
  "isahc",
+ "once_cell",
  "regex",
  "serde",
  "serde_json",
@@ -302,9 +309,9 @@ dependencies = [
 
 [[package]]
 name = "curl-sys"
-version = "0.4.43+curl-7.76.0"
+version = "0.4.55+curl-7.83.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a802c7a9828b7d139efaed1bc92471ab6681ed86d19a105605f5eadcb0837d11"
+checksum = "23734ec77368ec583c2e61dd3f0b0e5c98b93abe6d2a004ca06b91dd7e3e2762"
 dependencies = [
  "cc",
  "libc",
@@ -529,11 +536,12 @@ dependencies = [
 
 [[package]]
 name = "isahc"
-version = "1.4.0"
+version = "1.7.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "81c01404730bb4574bbacb59ca0855f969f8eabd688ca22866f2cc333f1a4f69"
+checksum = "334e04b4d781f436dc315cb1e7515bd96826426345d498149e4bde36b67f8ee9"
 dependencies = [
  "async-channel",
+ "castaway",
  "crossbeam-utils",
  "curl",
  "curl-sys",
