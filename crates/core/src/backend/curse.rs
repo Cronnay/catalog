@@ -52,8 +52,13 @@ impl From<Package> for Addon {
                         "1971-01-01T01:01:01.01Z".to_string()
                     }
                 };
+                let game_version = if !file.game_version.trim().is_empty()  {
+                    Some(file.game_version.to_owned())
+                } else {
+                    None
+                };
                 Version {
-                    game_version: Some(file.game_version.to_owned()),
+                    game_version,
                     flavor: get_flavor_from_game_version_type_id(
                         file.game_version_type_id.unwrap_or(0),
                     ),
