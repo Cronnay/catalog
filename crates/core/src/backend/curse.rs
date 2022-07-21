@@ -52,7 +52,7 @@ impl From<Package> for Addon {
                         "1971-01-01T01:01:01.01Z".to_string()
                     }
                 };
-                let game_version = if !file.game_version.trim().is_empty()  {
+                let game_version = if !file.game_version.trim().is_empty() {
                     Some(file.game_version.to_owned())
                 } else {
                     None
@@ -129,6 +129,7 @@ struct Package {
     latest_files: Vec<File>,
     latest_files_indexes: Vec<LatestFilesIndexes>,
     categories: Vec<Category>,
+    allow_mod_distribution: bool,
 }
 
 #[derive(Deserialize, Serialize, Clone, Debug)]
@@ -176,14 +177,16 @@ pub async fn get_addons() -> Result<Vec<Addon>, Error> {
             let mut response = HTTP_CLIENT.send_async(request.body(())?).await?;
             if response.status().is_success() {
                 let packages = response.json::<Packages>().await?;
+                let packages_len = packages.data.len();
                 let partials_addons = packages
                     .data
                     .into_iter()
+                    .filter(|p| p.allow_mod_distribution)
                     .map(Addon::from)
                     .collect::<Vec<Addon>>();
 
                 addons.extend_from_slice(&partials_addons);
-                number_of_addons = partials_addons.len();
+                number_of_addons = packages_len;
                 index += page_size;
             } else {
                 panic!("{}", response.status())
